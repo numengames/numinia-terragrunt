@@ -50,9 +50,9 @@ inputs = {
       ami_type       = "AL2023_x86_64_STANDARD"
       instance_types = ["t3.medium"]
 
-      min_size     = 2
+      min_size     = 3
       max_size     = 10
-      desired_size = 2
+      desired_size = 3
       tags = {
         "name" : "production-numinia-cluster"
       }
@@ -64,6 +64,18 @@ inputs = {
     bastion-host-access = {
         kubernetes_groups = ["masters"]
         principal_arn = include.envcommon.locals.bastion_host_ec2_role_arn
+        policy_associations = {
+            permissions = {
+                policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+                access_scope = {
+                    type = "cluster"
+                }
+            }
+        }
+    },
+    jesus-access = {
+        kubernetes_groups = ["masters"]
+        principal_arn = include.envcommon.locals.jesus_user_arn
         policy_associations = {
             permissions = {
                 policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
