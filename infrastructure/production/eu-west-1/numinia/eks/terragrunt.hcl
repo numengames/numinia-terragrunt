@@ -50,9 +50,9 @@ inputs = {
       ami_type       = "AL2023_x86_64_STANDARD"
       instance_types = ["t3.medium"]
 
-      min_size     = 2
+      min_size     = 3
       max_size     = 10
-      desired_size = 2
+      desired_size = 4
       tags = {
         "name" : "production-numinia-cluster"
       }
