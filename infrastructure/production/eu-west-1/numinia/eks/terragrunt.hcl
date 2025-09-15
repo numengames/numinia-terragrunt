@@ -34,10 +34,13 @@ inputs = {
     coredns    = {}
     kube-proxy = {}
     vpc-cni    = {}
-    aws-efs-csi-driver = {
-      most_recent = true
-      service_account_role_arn = include.envcommon.locals.efs_csi_role_arn
-    }
+    # eks-pod-identity-agent = {
+    #   most_recent = true
+    # }
+    # aws-efs-csi-driver = {
+    #   most_recent = true
+    #   service_account_role_arn = include.envcommon.locals.efs_csi_role_arn
+    # }
   }
 
   vpc_id                                = dependency.vpc.outputs.vpc_id
@@ -50,9 +53,25 @@ inputs = {
       ami_type       = "AL2023_x86_64_STANDARD"
       instance_types = ["t3.medium"]
 
-      min_size     = 4
-      max_size     = 10
-      desired_size = 5
+      min_size     = 1
+      max_size     = 12
+      desired_size = 9
+      tags = {
+        "name" : "production-numinia-cluster"
+      }
+    },
+
+    base-node-group = {
+      name           = "production-base-ng"
+      ami_type       = "AL2023_x86_64_STANDARD"
+      instance_types = ["m5.large"]
+
+      min_size     = 0
+      max_size     = 12
+      desired_size = 0
+      labels = {
+        "node-group" : "base-apps"
+      }
       tags = {
         "name" : "production-numinia-cluster"
       }
@@ -72,7 +91,20 @@ inputs = {
                 }
             }
         }
+    },
+    jesus = {
+        kubernetes_groups = ["masters"]
+        principal_arn = include.envcommon.locals.jesus_user_arn
+        policy_associations = {
+            permissions = {
+                policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+                access_scope = {
+                    type = "cluster"
+                }
+            }
+        }
     }
+
   }
 
   tags = {

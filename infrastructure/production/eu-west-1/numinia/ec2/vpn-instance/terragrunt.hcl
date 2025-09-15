@@ -14,18 +14,24 @@ include "envcommon" {
 # Configure the version of the module to use in this environment. This allows you to promote new versions one
 # environment at a time (e.g., qa -> stage -> prod).
 terraform {
-  source = "${include.envcommon.locals.kms_module_source}?ref=v3.1.1"
+  source = "${include.envcommon.locals.ec2_module_source}?ref=v5.7.1"
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# Override parameters for this environment
-# ---------------------------------------------------------------------------------------------------------------------
+dependency "vpc" {
+  config_path = "../../vpc" 
+}
 
-inputs = { 
-  description = "EFS key usage"
-  key_usage   = "ENCRYPT_DECRYPT"
-  aliases = ["numinia-eks"]
 
+# For production, we want to specify bigger instance classes and storage, so we specify override parameters here. These
+# inputs get merged with the common inputs from the root and the envcommon terragrunt.hcl
+inputs = {
+  name = "numinia-vpn-host"
+  instance_type          = "t3.small"
+  key_name               = "numinia-prod-pem"
+  vpc_security_group_ids = [include.envcommon.locals.vpn_host_sg_id]
+  subnet_id              = dependency.vpc.outputs.public_subnets[0]
+  associate_public_ip_address = true
+  ami = "ami-028727bd3039c5a1f"
   tags = {
     Terraform   = "true"
     Environment = "production"

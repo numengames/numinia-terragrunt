@@ -2,5 +2,5 @@
 # terragrunt.hcl configuration.
 locals {
   account_name   = "production"
-  aws_account_id = ""
+  aws_account_id = "241533135482"
 }

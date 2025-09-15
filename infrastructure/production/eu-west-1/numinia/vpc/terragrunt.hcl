@@ -37,6 +37,12 @@ inputs = {
   
   public_subnet_tags = {
     "kubernetes.io/role/elb" = "1"  
+    "kubernetes.io/cluster/production-numinia" = "shared"
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/cluster/production-numinia" = "shared"
+    "kubernetes.io/role/internal-elb"          = "1"
   }
 
   tags = {
