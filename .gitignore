@@ -2,3 +2,4 @@ env.hcl
 .env
 .terragrunt-cache
 .terraform.lock.hcl
+account.hcl

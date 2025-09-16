@@ -42,15 +42,3 @@ inputs = {
     Environment = "prod"
   }
 }
-
-# data "aws_iam_policy" "active_inference_pre_policy" {
-#   arn = "arn:aws:iam::${include.envcommon.locals.aws_account_id}:policy/active-inference-pre-secret-manager-policy"
-# }
-
-# data "aws_iam_policy" "active_inference_pro_policy" {
-#   arn = "arn:aws:iam::${include.envcommon.locals.aws_account_id}:policy/active-inference-pro-secret-manager-policy"
-# }
-
-# data "aws_iam_policy" "numinia_statics_bucket_policy" {
-#   arn = "arn:aws:iam::${include.envcommon.locals.aws_account_id}:policy/numinia-statics-bucket"
-# }
