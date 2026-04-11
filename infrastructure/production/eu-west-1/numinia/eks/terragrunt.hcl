@@ -26,7 +26,7 @@ dependency "vpc" {
 # inputs get merged with the common inputs from the root and the envcommon terragrunt.hcl
 inputs = {
   cluster_name    = "production-numinia"
-  cluster_version = "1.32"
+  cluster_version = "1.33"
 
   cluster_endpoint_public_access = false
 
