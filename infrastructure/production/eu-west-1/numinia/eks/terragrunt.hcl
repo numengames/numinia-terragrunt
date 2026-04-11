@@ -78,7 +78,7 @@ inputs = {
     }
 
   }
-  enable_cluster_creator_admin_permissions = true
+  enable_cluster_creator_admin_permissions = false
   access_entries = {
     bastion-host-access = {
         kubernetes_groups = ["masters"]
