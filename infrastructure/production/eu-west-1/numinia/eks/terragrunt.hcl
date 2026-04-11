@@ -54,8 +54,8 @@ inputs = {
       instance_types = ["t3.medium"]
 
       min_size     = 1
-      max_size     = 12
-      desired_size = 9
+      max_size     = 8
+      desired_size = 2
       tags = {
         "name" : "production-numinia-cluster"
       }
@@ -67,7 +67,7 @@ inputs = {
       instance_types = ["m5.large"]
 
       min_size     = 0
-      max_size     = 12
+      max_size     = 6
       desired_size = 0
       labels = {
         "node-group" : "base-apps"
