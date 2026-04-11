@@ -64,6 +64,7 @@ inputs = {
     cache_policy_id        = include.envcommon.locals.cache_policy_id
     origin_request_policy_id = include.envcommon.locals.origin_request_policy_id
     use_forwarded_values   = false
+    response_headers_policy_id = "5cc3b908-e619-4b99-88e5-2cf7f45965bd"
   }
   
   # Origin Access Control
