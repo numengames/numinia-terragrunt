@@ -91,20 +91,7 @@ inputs = {
                 }
             }
         }
-    },
-    jesus = {
-        kubernetes_groups = ["masters"]
-        principal_arn = include.envcommon.locals.jesus_user_arn
-        policy_associations = {
-            permissions = {
-                policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-                access_scope = {
-                    type = "cluster"
-                }
-            }
-        }
     }
-
   }
 
   tags = {
