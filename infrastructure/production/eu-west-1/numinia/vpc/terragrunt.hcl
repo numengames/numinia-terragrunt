@@ -31,8 +31,9 @@ inputs = {
   azs             = include.envcommon.locals.azs
   private_subnets = include.envcommon.locals.private_subnets
   public_subnets  = include.envcommon.locals.public_subnets
+  database_subnets = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 
-  enable_nat_gateway = true
+  enable_nat_gateway = false
   single_nat_gateway = true
   
   public_subnet_tags = {
