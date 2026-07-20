@@ -38,7 +38,30 @@ inputs = {
   versioning = {
     enabled = true
   }
-  
+
+  # Lifecycle — only the world-backup zips under `backups/` expire. The
+  # prebuilt engine image lives under `backup-engine/` and is intentionally
+  # NOT matched here, so it persists. World assets under `hyperfy-spaces/`
+  # are untouched (no rule matches them).
+  lifecycle_rule = [
+    {
+      id      = "expire-world-backups"
+      enabled = true
+      filter = {
+        prefix = "backups/"
+      }
+      # Khepri-Forge streams each backup as a multipart upload; abort orphans
+      # left by a failed job.
+      abort_incomplete_multipart_upload_days = 7
+      expiration = {
+        days = 7
+      }
+      noncurrent_version_expiration = {
+        days = 1
+      }
+    }
+  ]
+
   # CORS configuration
   cors_rule = [
     {
