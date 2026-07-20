@@ -29,7 +29,7 @@ dependency "vpc" {
 inputs = {
   name                                = "prod-hyperfy"
   engine                              = "aurora-postgresql"
-  engine_version                      = "16.8"
+  engine_version                      = "16.11"
   instance_class                      = "db.t4g.medium"
   vpc_id                              = dependency.vpc.outputs.vpc_id
   availability_zones                  = dependency.vpc.outputs.azs
@@ -48,7 +48,7 @@ inputs = {
   performance_insights_enabled        = true
   allow_major_version_upgrade         = true
   apply_immediately                   = true
-  deletion_protection                 = true
+  deletion_protection                 = false
   instances = {
     instance-1 = {
       instance_class = "db.t4g.medium"
