@@ -59,6 +59,28 @@ inputs = {
       noncurrent_version_expiration = {
         days = 1
       }
+    },
+    # Expire noncurrent versions bucket-wide (the bucket once hoarded ~600 GB of stale versions).
+    {
+      id      = "expire-noncurrent-versions-global"
+      enabled = true
+      filter = {
+        prefix = ""
+      }
+      abort_incomplete_multipart_upload_days = 7
+      noncurrent_version_expiration = {
+        days = 7
+      }
+    },
+    {
+      id      = "cleanup-expired-delete-markers"
+      enabled = true
+      filter = {
+        prefix = ""
+      }
+      expiration = {
+        expired_object_delete_marker = true
+      }
     }
   ]
 

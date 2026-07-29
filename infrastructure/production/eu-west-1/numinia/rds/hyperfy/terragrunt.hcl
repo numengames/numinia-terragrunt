@@ -45,10 +45,17 @@ inputs = {
   subnets                             = dependency.vpc.outputs.database_subnets
   create_db_subnet_group              = true
   create_security_group               = true
+  # Without this ingress nothing (nodes, VPN) can reach Aurora.
+  security_group_rules = {
+    vpc_ingress = {
+      cidr_blocks = ["10.0.0.0/16"]
+      description = "PostgreSQL from VPC (nodes + VPN)"
+    }
+  }
   performance_insights_enabled        = true
   allow_major_version_upgrade         = true
   apply_immediately                   = true
-  deletion_protection                 = false
+  deletion_protection                 = true
   instances = {
     instance-1 = {
       instance_class = "db.t4g.medium"
